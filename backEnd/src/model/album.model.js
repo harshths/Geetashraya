@@ -13,7 +13,10 @@ const albumSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
-});
+  thumbnail:{
+    type: String
+  }
+},{timestamps: true});
 
 
 const albumModel = mongoose.model("album", albumSchema);

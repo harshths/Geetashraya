@@ -7,6 +7,12 @@ dotenv.config();
 
 const registerUser = async (req, res) => {
   const { username, email, password, role = "user" } = req.body;
+
+  if(password.length < 6){
+    return res.status(400).json({
+      message: "Password must be at least 6 characters long..",
+    });
+  }
   let profilepic;
   if (req.file) {
     const response = await uploadProfilePic(req.file.buffer);
@@ -30,7 +36,7 @@ const registerUser = async (req, res) => {
     email,
     password: hash,
     role,
-    profilePic: profilepic,
+    ...(profilepic && { profilePic: profilepic }),
   });
 
   const token = jwt.sign(
@@ -50,13 +56,13 @@ const registerUser = async (req, res) => {
 
   res.status(201).json({
     message: "User registered successfullly...",
-    user:{
+    user: {
       id: user._id,
       username: user.username,
       email: user.email,
       role: user.role,
       profilePic: user.profilePic,
-    }
+    },
   });
 };
 
@@ -92,7 +98,7 @@ const loginUser = async (req, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false, 
+    secure: false,
     sameSite: "lax", // strict bhi problem kar sakta hai cross-origin me
   });
 
@@ -104,7 +110,7 @@ const loginUser = async (req, res) => {
       email: user.email,
       role: user.role,
       profilePic: user.profilePic,
-    }
+    },
   });
 };
 

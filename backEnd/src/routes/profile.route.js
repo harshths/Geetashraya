@@ -7,7 +7,7 @@ import {authUser } from '../middlewares/auth.middleware.js';
 const upload = multer();    
 
 const profileRouter = express.Router();
-profileRouter.put("/update",authUser, upload.single("profilepic"), updateProfile);
+profileRouter.put("/update",authUser, upload.single("profilePic"), updateProfile);
 profileRouter.get("/get", authUser, getProfile);
 
 export default profileRouter;

@@ -19,7 +19,7 @@ const uploadMusic = async (file) => {
 const uploadThumbnail = async (file) => {
   const response = await client.files.upload({
     file: file.toString("base64"),
-    fileName: "thumbnail.jpg",
+    fileName: "thumbnail_"+Date.now()+".jpg",
     folder: "backEnd/thumbnail",
   });
 
@@ -29,7 +29,7 @@ const uploadThumbnail = async (file) => {
 const uploadProfilePic = async (file) => {
   const response = await client.files.upload({
     file: file.toString("base64"),
-    fileName: "profilepic.jpg",
+    fileName: "profilepic_"+Date.now()+".jpg",
     folder: "backEnd/profilepic",
   });
 

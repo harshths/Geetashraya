@@ -31,7 +31,8 @@ const updateProfile = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  const user = await userModel.findById(req.user.id);
+  const user = await userModel.findById(req.user.id)
+  .select("-password");
 
   res.status(200).json({
     message: "Profile fetched successfully..",
